@@ -20,6 +20,9 @@ onMounted( () => {
 
 <template>
   <h1>Medicines</h1>
+  <p>
+    <RouterLink :to="{name: 'newMedicine'}">New medicine</RouterLink>
+  </p>
   <table>
     <tr>
       <th>Name</th>

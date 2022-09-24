@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+  padding: 0;
+}
 
 #app {
   display: grid;
@@ -13,13 +17,24 @@
 
 header {
   grid-area: header;
-  font-size: 150%;
+  font-size: 200%;
+
+  padding: 0.5em;
+  color: white;
+  background-color: #444444;
 }
 
 nav {
+  padding: 0.5em 0;
   grid-area: nav;
   display: flex;
   flex-direction: column;
+  gap: 0.5em;
+}
+
+nav a {
+  padding: 0.5em;
+  text-decoration: none;
 }
 
 main {

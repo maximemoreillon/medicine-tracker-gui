@@ -2,7 +2,7 @@
 import { RouterLink } from 'vue-router'
 import { inject, reactive, ref} from 'vue'
 import { onMounted } from 'vue'
-
+import MedicineRow from '@/components/MedicineRow.vue';
 const axios: any = inject('axios')
 
 const medicines = ref([])
@@ -23,22 +23,27 @@ onMounted( () => {
   <p>
     <RouterLink :to="{name: 'newMedicine'}">New medicine</RouterLink>
   </p>
+
   <table>
     <tr>
       <th>Name</th>
       <th>Frequency</th>
+      <th>Last intake</th>
+      <th>Due</th>
+      <th>Register intake</th>
+      <th>Delete</th>
     </tr>
-    <tr v-for="(medicine, index) in medicines" :key="index">
-      <td>
-        <RouterLink :to="{name: 'medicine', params: {_id: medicine._id}}">
-          {{medicine.name}}
-        </RouterLink>
-        
-      </td>
-      <td>{{medicine.frequency}}</td>
-    </tr>
+    <MedicineRow :medicine="medicine" v-for="(medicine, index) in medicines" />
   </table>
   <div >
     
   </div>
 </template>
+
+<style scoped>
+table {
+  width: 100%;
+  text-align: center;
+}
+
+</style>

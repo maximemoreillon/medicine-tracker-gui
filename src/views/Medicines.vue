@@ -33,7 +33,7 @@ onMounted( () => {
       <th>Register intake</th>
       <th>Delete</th>
     </tr>
-    <MedicineRow :medicine="medicine" v-for="(medicine, index) in medicines" />
+    <MedicineRow :medicine="medicine" v-for="(medicine, index) in medicines" @updated="get_medicines()"/>
   </table>
   <div >
     

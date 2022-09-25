@@ -29,7 +29,8 @@ const isDue = computed(() => {
   // Massively dirty
   if (!medicine.value) return
   if (!medicine.value.intake.length) return
-  const lastIntakeDate = new Date(medicine.value.intake[0].date)
+  const lastItemIndex = medicine.value.intake.length - 1
+  const lastIntakeDate = new Date(medicine.value.intake[lastItemIndex].date)
   const numberOfDaysToAdd = 1 / medicine.value.frequency
   const dueTime = lastIntakeDate.setDate(lastIntakeDate.getDate() + numberOfDaysToAdd)
   return new Date() > new Date(dueTime)

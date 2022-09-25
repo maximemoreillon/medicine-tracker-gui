@@ -1,7 +1,7 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <h1>TMedicine tracker</h1>
+  <p>An excuse to try out the Vue 3 composition API with TypeScript</p>
+  <p>Developed by Maxime Moreillon</p>
 </template>
 
 <style>

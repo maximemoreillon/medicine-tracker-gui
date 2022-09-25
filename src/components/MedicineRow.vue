@@ -69,16 +69,13 @@ onMounted(() => {
 <template>
     <tr>
         <td>
-            {{props.medicine.name}}
-        </td>
-        <td>
             <RouterLink :to="{name: 'medicine', params: {_id: props.medicine._id}}">
                 {{props.medicine.name}}
             </RouterLink>
         </td>
         <td>{{medicine.frequency}} time / day</td>
         <td>{{lastIntake?.toDateString()}}</td>
-        <td>{{isDue}}</td>
+        <td class="dueCell" :class="{isDue}">{{isDue}}</td>
         <td>
             <button @click="register_intake()">Register intake</button>
         </td>
@@ -89,5 +86,13 @@ onMounted(() => {
 </template>
 
 <style scoped>
+
+.dueCell {
+    color: green;
+}
+
+.duCell.isDue {
+    color: red;
+}
 
 </style>

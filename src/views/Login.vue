@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { inject, reactive, ref, onMounted } from 'vue'
 import cookies from 'vue-cookies'
 
 const axios: any = inject('axios')
 
+const router = useRouter()
 
 
 const credentials = reactive({
@@ -16,10 +17,9 @@ const login = async () => {
 
     try {
         const url = import.meta.env.VITE_LOGIN_URL
-        // console.log(url)
         const { data: { jwt } } = await axios.post(url, credentials)
         cookies.set('jwt', jwt)
-        alert('Login successful')
+        router.push({name: 'medicines'})
     } catch (error) {
         alert('Login failed')
         console.error(error)
@@ -34,15 +34,17 @@ const login = async () => {
 <template>
     <h1>Login</h1>
     <form @submit.prevent="login()">
-    <div>
-        <input type="text" v-model="credentials.username">
-    </div>
-    <div>
-        <input type="password" v-model="credentials.password">
-    </div>
-    <div>
-        <button type="submit">Login</button>
-    </div>
+        <div>
+            <label for="username">Username</label>
+            <input type="text" v-model="credentials.username" id="username">
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" v-model="credentials.password" id="password">
+        </div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
 
     </form>
 
@@ -50,4 +52,17 @@ const login = async () => {
 
 <style scoped>
 
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+form > div {
+    display: flex;
+    gap: 0.5em;
+}
+
+label {
+    flex-basis: 5em;
+}
 </style>

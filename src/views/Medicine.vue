@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { inject, ref, reactive, computed } from 'vue'
-import type { Ref } from 'vue'
 import { onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 

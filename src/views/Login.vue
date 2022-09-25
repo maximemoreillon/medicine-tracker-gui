@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { inject, reactive, ref, onMounted } from 'vue'
-import cookies from 'vue-cookies'
+import { useCookies } from "vue3-cookies";
+
 
 const axios: any = inject('axios')
-
+const { cookies } = useCookies()
 const router = useRouter()
 
 

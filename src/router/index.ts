@@ -1,12 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import axios from 'axios'
+import { useCookies } from "vue3-cookies"
+
+const { cookies } = useCookies()
 
 // View components
 import Medicines from '../views/Medicines.vue'
 import Medicine from '../views/Medicine.vue'
 import NewMedicine from '../views/NewMedicine.vue'
 import Login from '../views/Login.vue'
-import cookies from 'vue-cookies'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

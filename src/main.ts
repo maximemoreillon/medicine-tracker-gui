@@ -4,7 +4,6 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import App from './App.vue'
 import router from './router'
-import cookies from 'vue-cookies'
 
 
 axios.defaults.baseURL = import.meta.env.VITE_MEDICINE_TRACKER_API_BASE_URL

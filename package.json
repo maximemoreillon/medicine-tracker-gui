@@ -12,12 +12,11 @@
   "dependencies": {
     "@moreillon/vue_application_template": "^3.2.0",
     "axios": "^0.27.2",
-    "cookies": "^0.8.0",
     "pinia": "^2.0.21",
     "vue": "^3.2.38",
     "vue-axios": "^3.4.1",
-    "vue-cookies": "^1.8.1",
-    "vue-router": "^4.1.5"
+    "vue-router": "^4.1.5",
+    "vue3-cookies": "^1.0.6"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",

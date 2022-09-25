@@ -1,10 +1,5 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import { onMounted, inject, reactive, ref } from 'vue'
-
-const axios: any = inject('axios')
-
-
 
 </script>
 

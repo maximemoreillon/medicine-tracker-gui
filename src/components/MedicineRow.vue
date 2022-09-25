@@ -22,7 +22,6 @@ const props = defineProps<{
 
 
 const router = useRouter()
-const route = useRoute()
 const axios: any = inject('axios')
 const emit = defineEmits(['updated'])
 

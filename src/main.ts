@@ -4,12 +4,12 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import App from './App.vue'
 import router from './router'
+import './assets/main.css'
 
 
 axios.defaults.baseURL = import.meta.env.VITE_MEDICINE_TRACKER_API_BASE_URL
 
 
-import './assets/main.css'
 
 const app = createApp(App)
 

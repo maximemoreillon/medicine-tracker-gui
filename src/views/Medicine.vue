@@ -25,15 +25,14 @@ type Medicine = {
 const medicine = ref()
 
 
-const latestIntake = computed(() => {
+const isDue = computed(() => {
   // Massively dirty
   if (!medicine.value) return
   if (!medicine.value.intake.length) return
-  const someDate = new Date(medicine.value.intake[0].date)
+  const lastIntakeDate = new Date(medicine.value.intake[0].date)
   const numberOfDaysToAdd = 1 / medicine.value.frequency
-  const result = someDate.setDate(someDate.getDate() + numberOfDaysToAdd)
-  const deadline = new Date(result)
-  return new Date() < deadline
+  const dueTime = lastIntakeDate.setDate(lastIntakeDate.getDate() + numberOfDaysToAdd)
+  return new Date() > new Date(dueTime)
 
 })
 
@@ -77,7 +76,7 @@ onMounted(() => {
       Frequency: {{medicine.frequency}}
     </p>
     <p>
-      Taken: {{latestIntake}}
+      Due: {{isDue}}
     </p>
     <h2>Intake</h2>
     <ul>

@@ -67,11 +67,11 @@ onMounted(() => {
         <td>
             {{props.medicine.name}}
         </td>
-        <!-- <td>
+        <td>
             <RouterLink :to="{name: 'medicine', params: {_id: props.medicine._id}}">
                 {{props.medicine.name}}
             </RouterLink>
-        </td> -->
+        </td>
         <td>{{medicine.frequency}} time / day</td>
         <td>{{lastIntake?.toDateString()}}</td>
         <td>{{isDue}}</td>

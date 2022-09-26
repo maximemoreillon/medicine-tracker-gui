@@ -48,30 +48,35 @@ onMounted(() => {
 
 
 <template>
+  <q-page padding>
 
-  <q-page>
-    <AddMedicineDialog @medicineAdded="get_medicines()"/>
-    <q-table title="Medicines" :rows="medicines" :columns="columns" row-key="name" >
 
-      <template v-slot:body-cell-lastIntake="props">
-        <q-td :props="props">
-          {{getLastInstakeOf(props.row)}}
-        </q-td>
-      </template>
+        <q-table title="Medicines" :rows="medicines" :columns="columns" row-key="name">
+        
+          <template v-slot:top>
+            <AddMedicineDialog @medicineAdded="get_medicines()" />
+          </template>
+        
+          <template v-slot:body-cell-lastIntake="props">
+            <q-td :props="props">
+              {{getLastInstakeOf(props.row)}}
+            </q-td>
+          </template>
+        
+          <template v-slot:body-cell-registerIntake="props">
+            <q-td :props="props">
+              <q-btn color="primary" icon="check" label="Register" @click="registerIntake(props.row)" />
+            </q-td>
+          </template>
+        
+          <template v-slot:body-cell-deleteMedicine="props">
+            <q-td :props="props">
+              <q-btn color="red" icon="delete" label="Delete" @click="deleteMedicine(props.row)" />
+            </q-td>
+          </template>
+        
+        </q-table>
 
-      <template v-slot:body-cell-registerIntake="props">
-        <q-td :props="props">
-          <q-btn color="primary" icon="check" label="Register" @click="registerIntake(props.row)" />
-        </q-td>
-      </template>
-
-      <template v-slot:body-cell-deleteMedicine="props">
-        <q-td :props="props">
-          <q-btn color="red" icon="delete" label="Delete" @click="deleteMedicine(props.row)" />
-        </q-td>
-      </template>
-      
-    </q-table>
     
 
   </q-page>

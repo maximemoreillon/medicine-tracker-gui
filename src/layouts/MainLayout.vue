@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { version } from '../../package.json'
-import EssentialLink from 'components/EssentialLink.vue';
 
 const linksList = ref([
   {
@@ -59,12 +58,18 @@ const toggleLeftDrawer = () => {
           Navigation
         </q-item-label>
 
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+
+        <q-item v-for="({to, icon, caption, title}, index) in linksList" :key="index" :to="to" >
+          <q-item-section v-if="icon" avatar>
+            <q-icon :name="icon" />
+          </q-item-section>
+          
+          <q-item-section>
+            <q-item-label>{{ title }}</q-item-label>
+            <q-item-label caption>{{ caption }}</q-item-label>
+          </q-item-section>
+          </q-item>
+        </q-list>
     </q-drawer>
 
     <q-page-container>

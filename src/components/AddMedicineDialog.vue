@@ -27,7 +27,7 @@ const add_medicine = async () => {
 <q-btn label="Add medicine" color="primary" @click="dialog = true" />
 
 <q-dialog v-model="dialog">
-    <q-card>
+    <q-card >
         <q-card-section>
             <div class="text-h6">Add medicine</div>
         </q-card-section>

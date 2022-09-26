@@ -1,6 +1,8 @@
 # Medicine Tracker (medicine-tracker-gui)
 
-A medicine tracker
+A medicine tracker.
+
+Quite frankly, this is mainly an excuse to try out Vue 3's composition API with TypeScript and Quasar.
 
 ## Install the dependencies
 ```bash

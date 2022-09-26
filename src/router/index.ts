@@ -1,59 +1,36 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import axios from 'axios'
-import { useCookies } from "vue3-cookies"
+import { route } from 'quasar/wrappers';
+import {
+  createMemoryHistory,
+  createRouter,
+  createWebHashHistory,
+  createWebHistory,
+} from 'vue-router';
 
-const { cookies } = useCookies()
+import routes from './routes';
 
-// View components
-import Medicines from '../views/Medicines.vue'
-import Medicine from '../views/Medicine.vue'
-import NewMedicine from '../views/NewMedicine.vue'
-import Login from '../views/Login.vue'
+/*
+ * If not building with SSR mode, you can
+ * directly export the Router instantiation;
+ *
+ * The function below can be async too; either use
+ * async/await or return a Promise which resolves
+ * with the Router instance.
+ */
 
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/medicines',
-      alias: '/',
-      name: 'medicines',
-      component: Medicines
-    },
-    {
-      path: '/medicines/new',
-      name: 'newMedicine',
-      component: NewMedicine
-    },
-    {
-      path: '/medicines/:_id',
-      name: 'medicine',
-      component: Medicine
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue')
-    }
-  ]
-})
+export default route(function (/* { store, ssrContext } */) {
+  const createHistory = process.env.SERVER
+    ? createMemoryHistory
+    : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory);
 
+  const Router = createRouter({
+    scrollBehavior: () => ({ left: 0, top: 0 }),
+    routes,
 
-router.beforeEach((to, from) => {
+    // Leave this as is and make changes in quasar.conf.js instead!
+    // quasar.conf.js -> build -> vueRouterMode
+    // quasar.conf.js -> build -> publicPath
+    history: createHistory(process.env.VUE_ROUTER_BASE),
+  });
 
-  const  jwt = cookies.get('jwt')
-
-  const userIsAuthenticated = !!jwt
-  if (!userIsAuthenticated && to.name !== 'login') return { name: 'login' }
-
-  axios.defaults.headers.common.Authorization = `Bearer ${jwt}`
-
-
-
-})
-
-export default router
+  return Router;
+});

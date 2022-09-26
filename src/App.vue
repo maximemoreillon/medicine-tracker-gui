@@ -1,28 +1,11 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-
-</script>
-
 <template>
-  <header>
-    Medicine tracker
-  </header>
-
-  <nav>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink :to="{name: 'login'}">Login</RouterLink>
-    <RouterLink to="/about">About</RouterLink>
-  </nav>
-
-  <main>
-    <RouterView />
-  </main>
-
+  <router-view />
 </template>
 
-<style scoped>
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-
-
-
-</style>
+export default defineComponent({
+  name: 'App'
+});
+</script>

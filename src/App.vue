@@ -2,7 +2,7 @@
 import { useQuasar } from 'quasar'
 const $q = useQuasar()
 
-$q.dark.set(true) // or false or "auto"
+// $q.dark.set(true) // or false or "auto"
 
 </script>
 

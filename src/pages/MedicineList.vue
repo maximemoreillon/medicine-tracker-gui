@@ -14,9 +14,8 @@ const columns = ref([
   { name: 'medicineName', label: 'Name', field: 'name', sortable: true },
   { name: 'frequency', label: 'Frequency', field: 'frequency', sortable: true },
   { name: 'lastIntake', label: 'Last Intake', field: 'lastIntake', sortable: true },
-  { name: 'registerIntake', label: 'Register Intake' },
-  { name: 'details', label: 'Details' },
-  { name: 'deleteMedicine', label: 'Delete' },
+  { name: 'registerIntake', label: 'Register Intake', field: 'registerIntake' },
+  { name: 'details', label: 'Details', field: 'details' },
 ])
 
 const get_medicines = async () => {
@@ -53,7 +52,11 @@ onMounted(() => {
   <q-page padding>
 
 
-    <q-table title="Medicines" :rows="medicines" :columns="columns" row-key="name">
+    <q-table 
+      title="Medicines" 
+      :rows="medicines" 
+      :columns="columns" 
+      row-key="name">
     
       <template v-slot:top>
         <AddMedicineDialog @medicineAdded="get_medicines()" />
@@ -68,21 +71,21 @@ onMounted(() => {
     
       <template v-slot:body-cell-registerIntake="props">
         <q-td :props="props">
-          <q-btn color="primary" icon="check" round @click="registerIntake(props.row)" />
+          <q-btn color="primary" icon="check" flat round @click="registerIntake(props.row)" />
         </q-td>
       </template>
 
       <template v-slot:body-cell-details="props">
         <q-td :props="props">
-          <q-btn color="primary" icon="info" round :to="{name: 'medicine', params: {_id: props.row._id}}" />
+          <q-btn color="primary" icon="info" flat round :to="{name: 'medicine', params: {_id: props.row._id}}" />
         </q-td>
       </template>
     
-      <template v-slot:body-cell-deleteMedicine="props">
+      <!-- <template v-slot:body-cell-deleteMedicine="props">
         <q-td :props="props">
-          <q-btn color="red" icon="delete" round @click="deleteMedicine(props.row)" />
+          <q-btn color="negative" icon="delete" flat round @click="deleteMedicine(props.row)" />
         </q-td>
-      </template>
+      </template> -->
     
     </q-table>
 

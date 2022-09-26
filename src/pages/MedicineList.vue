@@ -4,7 +4,7 @@ import AddMedicineDialog from 'src/components/AddMedicineDialog.vue'
 import { api } from 'src/boot/axios'
 import { Medicine } from 'src/components/models'
 
-import { RouterLink } from 'vue-router'
+// import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
 import { onMounted } from 'vue'
 
@@ -14,8 +14,9 @@ const columns = ref([
   { name: 'medicineName', label: 'Name', field: 'name', sortable: true },
   { name: 'frequency', label: 'Frequency', field: 'frequency', sortable: true },
   { name: 'lastIntake', label: 'Last Intake', field: 'lastIntake', sortable: true },
-  { name: 'registerIntake', label: 'Register Intake', field: 'registerIntake', sortable: false },
-  { name: 'deleteMedicine', label: 'Delete', field: 'deleteMedicine', sortable: false },
+  { name: 'registerIntake', label: 'Register Intake' },
+  { name: 'details', label: 'Details' },
+  { name: 'deleteMedicine', label: 'Delete' },
 ])
 
 const get_medicines = async () => {
@@ -36,6 +37,7 @@ const registerIntake = async (medicine: Medicine) => {
 }
 
 const deleteMedicine = async (medicine: Medicine) => {
+  if (!confirm(`Delete ${medicine.name} ?`))
   await api.delete(`/medicines/${medicine._id}`)
   get_medicines()
 }
@@ -51,37 +53,38 @@ onMounted(() => {
   <q-page padding>
 
 
-        <q-table title="Medicines" :rows="medicines" :columns="columns" row-key="name">
-        
-          <template v-slot:top>
-            <AddMedicineDialog @medicineAdded="get_medicines()" />
-          </template>
+    <q-table title="Medicines" :rows="medicines" :columns="columns" row-key="name">
+    
+      <template v-slot:top>
+        <AddMedicineDialog @medicineAdded="get_medicines()" />
+      </template>
 
-          <template v-slot:body-cell-medicineName="props">
-            <q-td :props="props">
-              <RouterLink :to="{name: 'medicine', params: {_id: props.row._id}}">{{props.row.name}}</RouterLink>
-            </q-td>
-          </template>
-        
-          <template v-slot:body-cell-lastIntake="props">
-            <q-td :props="props">
-              {{getLastInstakeOf(props.row)}}
-            </q-td>
-          </template>
-        
-          <template v-slot:body-cell-registerIntake="props">
-            <q-td :props="props">
-              <q-btn color="primary" icon="check" label="Register" @click="registerIntake(props.row)" />
-            </q-td>
-          </template>
-        
-          <template v-slot:body-cell-deleteMedicine="props">
-            <q-td :props="props">
-              <q-btn color="red" icon="delete" label="Delete" @click="deleteMedicine(props.row)" />
-            </q-td>
-          </template>
-        
-        </q-table>
+    
+      <template v-slot:body-cell-lastIntake="props">
+        <q-td :props="props">
+          {{getLastInstakeOf(props.row)}}
+        </q-td>
+      </template>
+    
+      <template v-slot:body-cell-registerIntake="props">
+        <q-td :props="props">
+          <q-btn color="primary" icon="check" round @click="registerIntake(props.row)" />
+        </q-td>
+      </template>
+
+      <template v-slot:body-cell-details="props">
+        <q-td :props="props">
+          <q-btn color="primary" icon="info" round :to="{name: 'medicine', params: {_id: props.row._id}}" />
+        </q-td>
+      </template>
+    
+      <template v-slot:body-cell-deleteMedicine="props">
+        <q-td :props="props">
+          <q-btn color="red" icon="delete" round @click="deleteMedicine(props.row)" />
+        </q-td>
+      </template>
+    
+    </q-table>
 
     
 

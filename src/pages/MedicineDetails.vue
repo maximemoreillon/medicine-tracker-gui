@@ -42,6 +42,7 @@ const registerIntake = async () => {
 
 const deleteMedicine = async () => {
     if (!medicine.value) return
+    if (!confirm(`Delete ${medicine.value.name} ?`))
     await api.delete(`/medicines/${medicine.value._id}`)
     router.push({name: 'medicines'})
 }
@@ -58,9 +59,16 @@ onMounted(() => {
 
         <q-card v-if="medicine">
 
-            
+            <q-toolbar >
+                <q-btn flat round dense icon="arrow_left" :to="{name: 'medicines'}"/>
+                <q-toolbar-title>
+                    {{medicine.name}}
+                </q-toolbar-title>
+                <!-- <q-btn flat round dense icon="apps" class="q-mr-xs" />
+                <q-btn flat round dense icon="more_vert" /> -->
+            </q-toolbar>
+
             <q-card-section>
-                <div class="text-h6">{{medicine.name}}</div>
                 <div class="text-subtitle2">To be taken {{medicine.frequency}} time(s) per day</div>
             </q-card-section>
             <q-list>

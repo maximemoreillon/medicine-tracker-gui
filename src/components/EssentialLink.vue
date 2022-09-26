@@ -1,9 +1,31 @@
+<script lang="ts" setup>
+
+const props = defineProps({
+  title: {
+    type: String,
+    required: true
+  },
+
+  caption: {
+    type: String,
+    default: ''
+  },
+
+  to: Object,
+
+  icon: {
+    type: String,
+    default: ''
+  }
+})
+
+</script>
+
 <template>
   <q-item :to="to" >
     <q-item-section
       v-if="icon"
-      avatar
-    >
+      avatar >
       <q-icon :name="icon" />
     </q-item-section>
 
@@ -14,28 +36,4 @@
   </q-item>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
 
-export default defineComponent({
-  name: 'EssentialLink',
-  props: {
-    title: {
-      type: String,
-      required: true
-    },
-
-    caption: {
-      type: String,
-      default: ''
-    },
-
-    to: Object,
-
-    icon: {
-      type: String,
-      default: ''
-    }
-  }
-});
-</script>

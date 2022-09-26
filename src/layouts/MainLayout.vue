@@ -1,18 +1,19 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { version } from '../../package.json'
 import EssentialLink from 'components/EssentialLink.vue';
 
 const linksList = ref([
   {
     title: 'Medicine',
     caption: 'List of medicines',
-    icon: 'pill',
+    icon: 'medication',
     to: { name: 'medicines' }
   },
   {
     title: 'Login',
     caption: 'Login page',
-    icon: 'account',
+    icon: 'login',
     to: { name: 'login' }
   },
 
@@ -41,10 +42,10 @@ const toggleLeftDrawer = () => {
         />
 
         <q-toolbar-title>
-          Quasar App
+          Medicine tracker
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>v{{ version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -69,7 +70,7 @@ const toggleLeftDrawer = () => {
     <q-page-container>
       <router-view />
     </q-page-container>
-    
+
   </q-layout>
 </template>
 

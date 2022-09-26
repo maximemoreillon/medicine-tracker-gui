@@ -1,8 +1,12 @@
-export interface Todo {
-  id: number;
-  content: string;
+
+export interface Intake {
+  date: Date,
+  _id: string,
 }
 
-export interface Meta {
-  totalCount: number;
+export interface Medicine {
+  _id: string,
+  frequency: number,
+  intake: [Intake]
+
 }

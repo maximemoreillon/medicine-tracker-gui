@@ -2,6 +2,9 @@
 import { ref } from 'vue';
 import { version } from '../../package.json'
 import LogoutButton from 'components/LogoutButton.vue'
+import { useQuasar } from 'quasar'
+const $q = useQuasar()
+
 
 const linksList = ref([
   {
@@ -65,9 +68,18 @@ const toggleLeftDrawer = () => {
           </q-item-section>
         </q-item>
 
+        <q-item>
+          <q-item-section>
+            <q-btn color="primary" @click="$q.dark.toggle()" :icon="$q.dark.isActive ? 'dark_mode' : 'light_mode'"/>
+          </q-item-section>
+
+        </q-item>
+
 
         <q-item>
-          <LogoutButton />
+          <q-item-section>
+            <LogoutButton />
+          </q-item-section>
         </q-item>
 
       </q-list>

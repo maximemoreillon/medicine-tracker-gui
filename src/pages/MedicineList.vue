@@ -11,7 +11,7 @@ import { onMounted } from 'vue'
 const medicines = ref([])
 
 const columns = ref([
-  { name: 'name', label: 'Name', field: 'name', sortable: true },
+  { name: 'medicineName', label: 'Name', field: 'name', sortable: true },
   { name: 'frequency', label: 'Frequency', field: 'frequency', sortable: true },
   { name: 'lastIntake', label: 'Last Intake', field: 'lastIntake', sortable: true },
   { name: 'registerIntake', label: 'Register Intake', field: 'registerIntake', sortable: false },
@@ -55,6 +55,12 @@ onMounted(() => {
         
           <template v-slot:top>
             <AddMedicineDialog @medicineAdded="get_medicines()" />
+          </template>
+
+          <template v-slot:body-cell-medicineName="props">
+            <q-td :props="props">
+              <RouterLink :to="{name: 'medicine', params: {_id: props.row._id}}">{{props.row.name}}</RouterLink>
+            </q-td>
           </template>
         
           <template v-slot:body-cell-lastIntake="props">

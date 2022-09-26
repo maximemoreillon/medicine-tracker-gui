@@ -2,7 +2,7 @@ import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 
 // TODO: use env vars
-const api = axios.create({ baseURL: 'https://api.medicine.home.maximemoreillon.com' })
+const api = axios.create({ baseURL: import.meta.env.VITE_MEDICINE_TRACKER_API_BASE_URL })
 
 export default boot(({ app }) => {
     // for use inside Vue files (Options API) through this.$axios and this.$api

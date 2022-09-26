@@ -6,7 +6,8 @@ export interface Intake {
 
 export interface Medicine {
   _id: string,
+  name: string,
   frequency: number,
   intake: [Intake]
-
 }
+

@@ -24,7 +24,7 @@ const add_medicine = async () => {
 
 
 <template>
-<q-btn label="Add medicine" color="primary" @click="dialog = true" />
+<q-btn label="Add medicine" color="primary" icon="add" @click="dialog = true" />
 
 <q-dialog v-model="dialog">
     <q-card >
@@ -41,7 +41,7 @@ const add_medicine = async () => {
             
             <q-card-actions align="right">
                 <q-btn color="primary" icon="close" label="Cancel"  v-close-popup/>
-                <q-btn label="Register" type="submit" icon="check" color="primary" />
+                <q-btn label="Register" type="submit" icon="add" color="primary" />
             </q-card-actions>
         </q-form>
     </q-card>

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { version } from '../../package.json'
+import LogoutButton from 'components/LogoutButton.vue'
 
 const linksList = ref([
   {
@@ -8,12 +9,6 @@ const linksList = ref([
     caption: 'List of medicines',
     icon: 'medication',
     to: { name: 'medicines' }
-  },
-  {
-    title: 'Login',
-    caption: 'Login page',
-    icon: 'login',
-    to: { name: 'login' }
   },
 
 ]);
@@ -51,11 +46,11 @@ const toggleLeftDrawer = () => {
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
-      bordered
-    >
+      bordered>
       <q-list>
+
         <q-item-label header >
-          Navigation
+          Medicine tracker v{{version}}
         </q-item-label>
 
 
@@ -68,8 +63,14 @@ const toggleLeftDrawer = () => {
             <q-item-label>{{ title }}</q-item-label>
             <q-item-label caption>{{ caption }}</q-item-label>
           </q-item-section>
-          </q-item>
-        </q-list>
+        </q-item>
+
+
+        <q-item>
+          <LogoutButton />
+        </q-item>
+
+      </q-list>
     </q-drawer>
 
     <q-page-container>

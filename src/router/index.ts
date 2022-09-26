@@ -5,6 +5,8 @@ import {
   createWebHashHistory,
   createWebHistory,
 } from 'vue-router';
+import { axios, api } from 'src/boot/axios'
+import { Cookies } from 'quasar'
 
 import routes from './routes';
 
@@ -17,20 +19,41 @@ import routes from './routes';
  * with the Router instance.
  */
 
-export default route(function (/* { store, ssrContext } */) {
-  const createHistory = process.env.SERVER
-    ? createMemoryHistory
-    : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory);
 
-  const Router = createRouter({
-    scrollBehavior: () => ({ left: 0, top: 0 }),
-    routes,
+// export default route(function (/* { store, ssrContext } */) {
 
-    // Leave this as is and make changes in quasar.conf.js instead!
-    // quasar.conf.js -> build -> vueRouterMode
-    // quasar.conf.js -> build -> publicPath
-    history: createHistory(process.env.VUE_ROUTER_BASE),
-  });
+//   const createHistory = process.env.SERVER
+//     ? createMemoryHistory
+//     : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory);
 
-  return Router;
-});
+//   const Router = createRouter({
+//     scrollBehavior: () => ({ left: 0, top: 0 }),
+//     routes,
+
+//     // Leave this as is and make changes in quasar.conf.js instead!
+//     // quasar.conf.js -> build -> vueRouterMode
+//     // quasar.conf.js -> build -> publicPath
+//     history: createHistory(process.env.VUE_ROUTER_BASE),
+//   });
+
+//   return Router;
+// });
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes
+})
+
+
+router.beforeEach((to, from) => {
+
+  const jwt = Cookies.get('jwt')
+
+  const userIsAuthenticated = !!jwt
+  if (!userIsAuthenticated && to.name !== 'login') return { name: 'login' }
+  
+  api.defaults.headers.common.Authorization = `Bearer ${jwt}`
+
+})
+
+export default router

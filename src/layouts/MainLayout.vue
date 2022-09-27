@@ -61,11 +61,6 @@ const toggleLeftDrawer = () => {
       bordered>
       <q-list>
 
-        <q-item-label header >
-          Medicine tracker v{{version}}
-        </q-item-label>
-
-
         <q-item v-for="({to, icon, caption, title}, index) in nav" :key="index" :to="to" >
           <q-item-section v-if="icon" avatar>
             <q-icon :name="icon" />

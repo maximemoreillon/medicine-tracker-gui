@@ -5,7 +5,7 @@ import {
   createWebHashHistory,
   createWebHistory,
 } from 'vue-router';
-import { axios, api } from 'src/boot/axios'
+import { api } from 'src/boot/axios'
 import { Cookies } from 'quasar'
 
 import routes from './routes';

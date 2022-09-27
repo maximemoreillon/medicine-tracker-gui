@@ -6,12 +6,18 @@ import { useQuasar } from 'quasar'
 const $q = useQuasar()
 
 
-const linksList = ref([
+const nav = ref([
   {
     title: 'Medicine',
     caption: 'List of medicines',
     icon: 'medication',
     to: { name: 'medicines' }
+  },
+  {
+    title: 'About',
+    caption: 'About this app',
+    icon: 'info_outline',
+    to: { name: 'about' }
   },
 
 ]);
@@ -29,20 +35,23 @@ const toggleLeftDrawer = () => {
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
+
         <q-btn
           flat
           dense
           round
           icon="menu"
           aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+          @click="toggleLeftDrawer"/>
 
         <q-toolbar-title>
           Medicine tracker
         </q-toolbar-title>
 
-        <div>v{{ version }}</div>
+        <LogoutButton />
+
+        <q-btn @click="$q.dark.toggle()" :icon="$q.dark.isActive ? 'dark_mode' : 'light_mode'" flat round/>
+        
       </q-toolbar>
     </q-header>
 
@@ -57,7 +66,7 @@ const toggleLeftDrawer = () => {
         </q-item-label>
 
 
-        <q-item v-for="({to, icon, caption, title}, index) in linksList" :key="index" :to="to" >
+        <q-item v-for="({to, icon, caption, title}, index) in nav" :key="index" :to="to" >
           <q-item-section v-if="icon" avatar>
             <q-icon :name="icon" />
           </q-item-section>
@@ -68,19 +77,7 @@ const toggleLeftDrawer = () => {
           </q-item-section>
         </q-item>
 
-        <q-item>
-          <q-item-section>
-            <q-btn color="primary" @click="$q.dark.toggle()" :icon="$q.dark.isActive ? 'dark_mode' : 'light_mode'"/>
-          </q-item-section>
 
-        </q-item>
-
-
-        <q-item>
-          <q-item-section>
-            <LogoutButton />
-          </q-item-section>
-        </q-item>
 
       </q-list>
     </q-drawer>

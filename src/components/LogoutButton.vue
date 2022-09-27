@@ -12,7 +12,7 @@ const logout = async () => {
 </script>
 
 <template>
-<q-btn label="Logout" @click="logout()" color="primary" icon="logout"/>
+<q-btn round flat @click="logout()" icon="logout"/>
 </template>
 
 <style scoped>

@@ -14,6 +14,7 @@ const columns = ref([
   { name: 'medicineName', label: 'Name', field: 'name', sortable: true },
   { name: 'frequency', label: 'Frequency', field: 'frequency', sortable: true },
   { name: 'lastIntake', label: 'Last Intake', field: 'lastIntake', sortable: true },
+  { name: 'isTaken', label: 'Taken', field: 'isTaken' },
   { name: 'registerIntake', label: 'Register Intake', field: 'registerIntake' },
   { name: 'details', label: 'Details', field: 'details' },
 ])
@@ -27,7 +28,7 @@ const getLastInstakeOf = (medicine: Medicine) => {
   const {intake} = medicine
   if(!intake || !intake.length) return
   const lastIndex = intake.length -1
-  return new Date(intake[lastIndex].date).toDateString()
+  return new Date(intake[lastIndex].date)
 }
 
 const registerIntake = async (medicine: Medicine) => {
@@ -39,6 +40,16 @@ const deleteMedicine = async (medicine: Medicine) => {
   if (!confirm(`Delete ${medicine.name} ?`))
   await api.delete(`/medicines/${medicine._id}`)
   get_medicines()
+}
+
+const isTaken = (medicine: Medicine) => {
+  if(!medicine) return
+  const lastIntakeDate = getLastInstakeOf(medicine)
+  if(!lastIntakeDate) return
+  const numberOfDaysToAdd = 1 / medicine.frequency
+  const dueTime = lastIntakeDate.setDate(lastIntakeDate.getDate() + numberOfDaysToAdd)
+  return new Date() < new Date(dueTime)
+
 }
 
 onMounted(() => {
@@ -65,13 +76,25 @@ onMounted(() => {
     
       <template v-slot:body-cell-lastIntake="props">
         <q-td :props="props">
-          {{getLastInstakeOf(props.row)}}
+          {{getLastInstakeOf(props.row)?.toDateString()}}
         </q-td>
       </template>
+
+      <template v-slot:body-cell-isTaken="props">
+        <q-td :props="props">
+          <q-avatar 
+            :color="isTaken(props.row) ? 'positive' : 'negative'" 
+            :icon="isTaken(props.row) ? 'check' : 'close'" 
+            size="24px"
+            text-color="white"/>
+        </q-td>
+      </template>
+
+
     
       <template v-slot:body-cell-registerIntake="props">
         <q-td :props="props">
-          <q-btn color="primary" icon="check" flat round @click="registerIntake(props.row)" />
+          <q-btn color="primary" icon="format_list_bulleted_add" flat round @click="registerIntake(props.row)" />
         </q-td>
       </template>
 

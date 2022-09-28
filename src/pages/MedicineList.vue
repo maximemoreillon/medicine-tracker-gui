@@ -36,11 +36,6 @@ const registerIntake = async (medicine: Medicine) => {
   get_medicines()
 }
 
-const deleteMedicine = async (medicine: Medicine) => {
-  if (!confirm(`Delete ${medicine.name} ?`))
-  await api.delete(`/medicines/${medicine._id}`)
-  get_medicines()
-}
 
 const isTaken = (medicine: Medicine) => {
   if(!medicine) return
@@ -70,7 +65,13 @@ onMounted(() => {
       row-key="name">
     
       <template v-slot:top>
-        <AddMedicineDialog @medicineAdded="get_medicines()" />
+        <q-toolbar>
+          <q-toolbar-title>
+            Medicines
+          </q-toolbar-title>
+        
+          <AddMedicineDialog @medicineAdded="get_medicines()" />
+        </q-toolbar>
       </template>
 
     

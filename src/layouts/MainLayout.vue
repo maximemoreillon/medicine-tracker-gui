@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { version } from '../../package.json'
 import LogoutButton from 'components/LogoutButton.vue'
+import { ref } from 'vue';
 import { useQuasar } from 'quasar'
-const $q = useQuasar()
 
+const $q = useQuasar()
 
 const nav = ref([
   {
@@ -50,7 +49,11 @@ const toggleLeftDrawer = () => {
 
         <LogoutButton />
 
-        <q-btn @click="$q.dark.toggle()" :icon="$q.dark.isActive ? 'dark_mode' : 'light_mode'" flat round/>
+        <q-btn 
+          @click="$q.dark.toggle()" 
+          :icon="$q.dark.isActive ? 'dark_mode' : 'light_mode'" 
+          flat 
+          round/>
         
       </q-toolbar>
     </q-header>
@@ -71,8 +74,6 @@ const toggleLeftDrawer = () => {
             <q-item-label caption>{{ caption }}</q-item-label>
           </q-item-section>
         </q-item>
-
-
 
       </q-list>
     </q-drawer>

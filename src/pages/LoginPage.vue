@@ -3,18 +3,16 @@ import { useRouter } from 'vue-router'
 import { reactive, ref } from 'vue'
 import { api } from 'src/boot/axios'
 import { Cookies } from 'quasar'
+import { useQuasar } from 'quasar'
 
+const $q = useQuasar()
 const router = useRouter()
-
 const loading = ref(false)
 
 const credentials = reactive({
     username: '',
     password: ''
 })
-
-const loggedIn = ref()
-
 
 const login = async () => {
 
@@ -25,8 +23,8 @@ const login = async () => {
         Cookies.set('jwt', jwt)
         router.push({name: 'medicines'})
     } catch (error) {
-        alert('Login failed')
         console.error(error)
+        $q.notify(`Login failed`)
     }
     finally {
         loading.value = false
@@ -48,7 +46,7 @@ const login = async () => {
                 <div class="text-h6">Medicine tracker</div>
                 <div class="text-subtitle2">Login</div>
             </q-card-section>
-            <q-form @submit="login()" class="q-gutter-md" v-if="!loggedIn">
+            <q-form @submit="login()" class="q-gutter-md">
                 <q-card-section>
                     <q-input v-model="credentials.username" label="Username" hint="Your username" />
                     <q-input v-model="credentials.password" label="password" hint="Your password" type="password" />

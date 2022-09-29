@@ -10,13 +10,25 @@ const userInput = reactive({
     frequency: '',
 })
 
-let dialog = ref()
+const dialog = ref()
 
+const loading = ref(false)
 
 const add_medicine = async () => {
-    await api.post('/medicines', userInput)
-    dialog.value = false
-    emit('medicineAdded')
+    try {
+        loading.value = true
+        await api.post('/medicines', userInput)
+        dialog.value = false
+        emit('medicineAdded')
+    } 
+    catch (error) {
+        console.error(error)
+        
+    }
+    finally {
+        loading.value = false
+    }
+    
 }
 
 
@@ -27,23 +39,26 @@ const add_medicine = async () => {
 <q-btn label="Add medicine" color="primary" icon="add" @click="dialog = true" />
 
 <q-dialog v-model="dialog">
-    <q-card >
+    <q-card class="medicine-registration-card">
         <q-card-section>
             <div class="text-h6">Add medicine</div>
         </q-card-section>
 
         <q-form @submit="add_medicine()" class="q-gutter-md">
-            <q-card-section class="q-pt-none">
-            
-                <q-input v-model="userInput.name" label="Name" hint="Medicine name" />
-                <q-input v-model.number="userInput.frequency" label="Frequency" hint="Intake per day" type="number"/>
+            <q-card-section class="row q-gutter-md">
+                <q-input class="col" v-model.number="userInput.frequency" label="Frequency" hint="Intake per day" type="number"/>
+                <q-input class="col" v-model="userInput.name" label="Name" hint="Medicine name" />
             </q-card-section>
             
             <q-card-actions align="right">
-                <q-btn color="primary" icon="close" label="Cancel"  v-close-popup/>
-                <q-btn label="Register" type="submit" icon="add" color="primary" />
+                <q-btn color="primary" flat icon="close" label="Cancel"  v-close-popup/>
+                <q-btn label="Register" flat type="submit" icon="add" color="primary" />
             </q-card-actions>
         </q-form>
     </q-card>
 </q-dialog>
 </template>
+
+<style scoped>
+
+</style>

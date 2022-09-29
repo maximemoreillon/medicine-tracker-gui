@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IntakeRegistrationButton from 'src/components/IntakeRegistrationButton.vue'
 
 import { api } from 'src/boot/axios'
 import { Medicine } from 'src/components/models'
@@ -19,12 +20,13 @@ const columns = ref([
 
 ])
 
-const get_medicine = async () => {
+const getMedicine = async () => {
     loading.value = true
     try {
         const { data } = await api.get(`/medicines/${medicine_id}`)
         medicine.value = data
-    } catch (error) {
+    } 
+    catch (error) {
         alert('Failed to get medicine')
         console.error(error)
     }
@@ -45,7 +47,7 @@ const lastIntake = computed(() => {
 const registerIntake = async () => {
     if (!medicine.value) return
     await api.post(`/medicines/${medicine.value._id}/intakes`)
-    get_medicine()
+    getMedicine()
 }
 
 const deleteMedicine = async () => {
@@ -60,11 +62,11 @@ const deleteIntake = async (_id: string) => {
     if (!medicine.value) return
     if (!confirm(`Delete ${medicine.value.name} ?`)) return
     await api.delete(`/medicines/${medicine.value._id}/intakes/${_id}`)
-    get_medicine()
+    getMedicine()
 }
 
 onMounted(() => {
-    get_medicine()
+    getMedicine()
 })
 
 </script>
@@ -72,11 +74,7 @@ onMounted(() => {
 
 <template>
     <q-page padding>
-
-
         <q-card>
-        
-
             <q-inner-loading :showing="loading">
                 <q-spinner-gears size="50px" color="primary" />
             </q-inner-loading>
@@ -100,14 +98,9 @@ onMounted(() => {
 
                         <template v-slot:top>
                             <q-toolbar>
-                                <q-toolbar-title>
-                                    Intake history
-                                </q-toolbar-title>
-                            
-                                <q-btn color="primary" icon="check" label="Register intake" @click="registerIntake()" />
+                                <q-toolbar-title>Intake history</q-toolbar-title>
+                                <IntakeRegistrationButton :medicine="medicine" @intakeRegistered="getMedicine()"/>
                             </q-toolbar>
-
-                            
                         </template>
 
                         <template v-slot:body-cell-date="props">

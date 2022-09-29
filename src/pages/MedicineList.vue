@@ -1,6 +1,8 @@
 <script setup lang="ts">
 
 import AddMedicineDialog from 'src/components/AddMedicineDialog.vue'
+import IntakeRegistrationButton from 'src/components/IntakeRegistrationButton.vue'
+
 import { api } from 'src/boot/axios'
 import { Medicine } from 'src/components/models'
 import { ref, onMounted } from 'vue'
@@ -114,7 +116,7 @@ onMounted(() => {
     
       <template v-slot:body-cell-registerIntake="props">
         <q-td :props="props">
-          <q-btn color="primary" icon="format_list_bulleted_add" flat round @click="registerIntake(props.row)" />
+          <IntakeRegistrationButton :medicine="props.row" @intakeRegistered="get_medicines()"/>
         </q-td>
       </template>
 

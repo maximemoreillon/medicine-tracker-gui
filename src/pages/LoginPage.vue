@@ -42,11 +42,11 @@ const login = async () => {
 
 <template>
 <q-layout view="lHh Lpr lFf">
-    <q-page padding>
-        <q-card>
+    <q-page padding class="row items-start justify-center">
+        <q-card class="col login-card">
             <q-card-section>
-                <div class="text-h6">Login</div>
-                <!-- <div class="text-subtitle2">by John Doe</div> -->
+                <div class="text-h6">Medicine tracker</div>
+                <div class="text-subtitle2">Login</div>
             </q-card-section>
             <q-form @submit="login()" class="q-gutter-md" v-if="!loggedIn">
                 <q-card-section>
@@ -54,7 +54,7 @@ const login = async () => {
                     <q-input v-model="credentials.password" label="password" hint="Your password" type="password" />
                 </q-card-section>
                 <q-card-actions align="center">
-                    <q-btn label="Login" type="submit" color="primary" :loading="loading"/>
+                    <q-btn label="Login" icon="login" type="submit" color="primary" :loading="loading"/>
                 </q-card-actions>
             </q-form>
         </q-card>
@@ -66,5 +66,7 @@ const login = async () => {
 </template>
 
 <style scoped>
-
+.login-card {
+    max-width: 40rem;
+}
 </style>

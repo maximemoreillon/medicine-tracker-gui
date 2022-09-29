@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import AddMedicineDialog from 'src/components/AddMedicineDialog.vue'
 
+import AddMedicineDialog from 'src/components/AddMedicineDialog.vue'
 import { api } from 'src/boot/axios'
 import { Medicine } from 'src/components/models'
+import { ref, onMounted } from 'vue'
 
-// import { RouterLink } from 'vue-router'
-import { ref } from 'vue'
-import { onMounted } from 'vue'
-
-const medicines = ref([])
-
+const loading = ref(false)
+const medicines = ref<Medicine[]>([])
 const columns = ref([
   { name: 'medicineName', label: 'Name', field: 'name', sortable: true },
   { name: 'frequency', label: 'Frequency', field: 'frequency', sortable: true },
@@ -19,10 +16,36 @@ const columns = ref([
   { name: 'details', label: 'Details', field: 'details' },
 ])
 
+
 const get_medicines = async () => {
-  const { data } = await api.get('/medicines')
-  medicines.value = data
+  loading.value = true
+  try {
+    const { data } = await api.get('/medicines')
+    medicines.value = data
+  } 
+  catch (error) {
+    alert('Failed to get data')
+    console.error(error)
+  }
+  finally {
+    loading.value = false
+  }
+  
 }
+
+const registerIntake = async (medicine: Medicine) => {
+
+  try {
+    await api.post(`/medicines/${medicine._id}/intakes`)
+    get_medicines()
+  } 
+  catch (error) {
+    alert ('Failed to register intake')
+    console.error(error)
+  }
+}
+  
+
 
 const getLastInstakeOf = (medicine: Medicine) => {
   const {intake} = medicine
@@ -31,10 +54,6 @@ const getLastInstakeOf = (medicine: Medicine) => {
   return new Date(intake[lastIndex].date)
 }
 
-const registerIntake = async (medicine: Medicine) => {
-  await api.post(`/medicines/${medicine._id}/intakes`)
-  get_medicines()
-}
 
 
 const isTaken = (medicine: Medicine) => {
@@ -44,7 +63,6 @@ const isTaken = (medicine: Medicine) => {
   const numberOfDaysToAdd = 1 / medicine.frequency
   const dueTime = lastIntakeDate.setDate(lastIntakeDate.getDate() + numberOfDaysToAdd)
   return new Date() < new Date(dueTime)
-
 }
 
 onMounted(() => {
@@ -59,6 +77,7 @@ onMounted(() => {
 
 
     <q-table 
+      :loading="loading"
       title="Medicines" 
       :rows="medicines" 
       :columns="columns" 

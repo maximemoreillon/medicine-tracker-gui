@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY ./ .
-RUN npx quasar build
+RUN npx quasar build -m pwa
 
 FROM nginx as production-stage
 RUN mkdir /app
